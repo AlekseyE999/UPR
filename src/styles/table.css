@@ -1,0 +1,22 @@
+.table{
+    display: flex;
+    margin-top: 15px;
+    margin-left: 15px;
+    flex-direction: column;
+    margin-bottom: 0px;
+}
+
+.table_header{
+    display: flex;
+    flex-direction: row;
+}
+
+ul {
+    list-style: none;
+    font-size: 22px;
+    font-family: 'Lora', serif;
+}
+
+li{
+    border: 1px solid black;
+}

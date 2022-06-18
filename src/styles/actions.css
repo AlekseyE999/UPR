@@ -1,0 +1,36 @@
+.action {
+    display:flex;
+    border: 2px solid red;
+    justify-content:first baseline;
+    flex-direction: column;
+}
+
+.period{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+.responsible{
+    display:flex;
+    border: 2px solid green;
+}
+
+.functions{
+    display: flex;
+    flex-direction: row;
+}
+
+.button_redo {
+    padding-left : 32px;
+    padding-top : 10px;
+    padding-bottom : 10px;
+    background-repeat : no-repeat;  
+}
+
+.button_undo {
+    padding-left : 32px;
+    padding-top : 10px;
+    padding-bottom : 10px;
+    background-repeat : no-repeat;  
+}

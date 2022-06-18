@@ -1,0 +1,14 @@
+* {
+    margin-top: 0%;
+    padding: 5px;
+}
+
+#root {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wraper{
+    display: flex;
+    flex-direction: row;
+}
