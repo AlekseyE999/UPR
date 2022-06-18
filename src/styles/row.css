@@ -10,7 +10,8 @@ li{
     border-right: 1px solid black;
 }
 
-.graph{
+.row{
     display: flex;
     flex-direction: row;
+    padding: 0px;
 }

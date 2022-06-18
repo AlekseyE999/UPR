@@ -4,11 +4,13 @@
     margin-left: 15px;
     flex-direction: column;
     margin-bottom: 0px;
+    padding: 0px;
 }
 
 .table_header{
     display: flex;
     flex-direction: row;
+    padding: 0px;
 }
 
 ul {

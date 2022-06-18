@@ -1,25 +1,29 @@
 import React from "react";
 import '../styles/table.css';
-import Graphs from "./graphs";
+import Row from "./Row";
 
 const Table = (props) => {
     return (
         <div className="table">
-            <ul className="table_header">
-                <li>№</li>
-                <li>Задача</li>
-                <li>Ед. Изм.</li>
-                <li>Кол-во</li>
-                <li>Примечание</li>
-                <li>Отчетный месяц</li>
-                <li>Отчетный год</li>
-                <li>Фирма</li>
-                <li>Время записи</li>
-            </ul>
-            <Graphs/>
-            <Graphs/>
-            <Graphs/>
-            <Graphs/>
+            <table border="1px">
+                <tr>
+                    <th>✓</th>
+                    <th>№</th>
+                    <th>Задача</th>
+                    <th>Ед. Изм.</th>
+                    <th>Кол-во</th>
+                    <th>Примечание</th>
+                    <th>Отчетный месяц</th>
+                    <th>Отчетный год</th>
+                    <th>Фирма</th>
+                    <th>Время записи</th>
+                </tr>
+                <Row />
+                <Row />
+                <Row />
+                <Row />
+            </table>
+
         </div>
     );
 }

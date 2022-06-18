@@ -1,7 +1,7 @@
 import React from "react";
-import Action from "./components/actions.";
-import Filter from "./components/filter";
-import Table from "./components/table";
+import Action from "./components/Actions.jsx";
+import Filter from "./components/Filter.jsx";
+import Table from "./components/Table.jsx";
 import './styles/app.css';
 
 function App() {

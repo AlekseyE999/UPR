@@ -9,6 +9,7 @@
     display: flex;
     flex-direction: row;
     text-align: center;
+    padding: 0px;
 }
 
 .responsible{
@@ -19,18 +20,26 @@
 .functions{
     display: flex;
     flex-direction: row;
+    margin-top: 10px;
+    padding: 0px;
 }
 
 .button_redo {
-    padding-left : 32px;
-    padding-top : 10px;
-    padding-bottom : 10px;
+    margin: 0%;
+    padding: 0px;
+    overflow: hidden;
+    height: 40px;
     background-repeat : no-repeat;  
 }
 
 .button_undo {
-    padding-left : 32px;
-    padding-top : 10px;
-    padding-bottom : 10px;
+    margin: 0%;
+    padding: 0px;
+    overflow: hidden;
+    height: 40px;
     background-repeat : no-repeat;  
+}
+
+h3{
+    margin: 0px;
 }
