@@ -1,0 +1,11 @@
+.form_autharization{
+    height:100%;
+}
+
+.div_autharization{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:100%;
+}

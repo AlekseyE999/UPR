@@ -4,16 +4,16 @@ import '../styles/row.css';
 const Row = (props) => {
     return (
             <tr>
-                <td><input type="checkbox" value="1417"></input></td>
-                <td>sdc</td>
-                <td>Задача</td>
-                <td>Ед. Изм.</td>
-                <td>Кол-во</td>
-                <td>Примечание</td>
-                <td>Отчетный месяц</td>
-                <td>Отчетный год</td>
-                <td>Фирма</td>
-                <td>Время записи</td>
+                <td><input type="checkbox" value={props.data.id}></input></td>
+                <td>{props.data.id}</td>
+                <td>{props.data.task}</td>
+                <td>{props.data.units}</td>
+                <td>{props.data.count}</td>
+                <td>{props.data.note}</td>
+                <td>{props.data.month}</td>
+                <td>{props.data.year}</td>
+                <td>{props.data.firm}</td>
+                <td>{props.data.time}</td>
             </tr>
     );
 }

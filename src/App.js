@@ -7,7 +7,7 @@ import './styles/app.css';
 function App() {
   return (
     <div className="App">
-      <Action/>
+      <Action responsible="Aleks" />
       <div className="wraper">
         <Filter/>
         <Table/>
