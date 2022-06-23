@@ -1,11 +1,28 @@
-.form_autharization{
+.form_auth{
     height:100%;
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
 }
 
-.div_autharization{
+.div_auth{
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
+    align-content: center;
     height:100%;
+    width: auto;
+
+}
+
+.signup_input{
+    border: 2px solid aqua;
+    font-size: 22px;
+    font-family: 'Lora', serif;
+    margin: 10px;
+}
+
+.signup_button{
+    justify-content: right;
 }
