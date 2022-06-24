@@ -27,4 +27,17 @@ async function getUserTasks(jwt) {
     return { status: response.status, data: (response.status === 200 ? await response.json() : {}) };
 }
 
+async function addUserTask(jwt, task) {
+    const response = await fetch(`${connection}/user/tasks`, {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify(task),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwt}`
+        }
+    });
+    return { status: response.status, data: (response.status === 201 ? await response.json() : {}) };
+}
+
 export { login };
