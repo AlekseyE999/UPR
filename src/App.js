@@ -8,7 +8,7 @@ import './styles/app.css';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  if(!isLoggedIn){
+  if(isLoggedIn){
     return(
     <LogIn onLogIn={setIsLoggedIn}/>
     );

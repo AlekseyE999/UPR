@@ -36,3 +36,10 @@
 h3{
     margin: 0px;
 }
+
+.avatar{
+    display: flex;
+    justify-content: right;
+    margin-left: auto;
+
+}

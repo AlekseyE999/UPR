@@ -12,22 +12,22 @@ const Table = (props) => {
         { id: 4, task: 'task4', units: 'месяц', count: 2, note: 'что-то', month: 'январь', year: 2017, firm: 'ООО Fronфвыt', time: '1.00' },
     ])
 
-    useEffect(() => {
-        subscribe()
-    }, [])
+    // useEffect(() => {
+    //     subscribe()
+    // }, [])
 
-    const subscribe = async () => {
-        try {
-            const { data } = await axios.get('http://localhost:3000/work-table')
-            setRows(prev => [data, ...prev])
-            await subscribe();
-        }
-        catch (e) {
-            setTimeout(() => {
-                subscribe()
-            }, 500)
-        }
-    }
+    // // const subscribe = async () => {
+    // //     try {
+    // //         const { data } = await axios.get('http://localhost:3000/work-table')
+    // //         setRows(prev => [data, ...prev])
+    // //         await subscribe();
+    // //     }
+    // //     catch (e) {
+    // //         setTimeout(() => {
+    // //             subscribe()
+    // //         }, 500)
+    // //     }
+    // // }
 
     return (
 
