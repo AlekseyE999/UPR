@@ -66,4 +66,16 @@ async function updateUserTasks(jwt, updates) {
     return { status: response.status };
 }
 
+async function getUserFirms(jwt) {
+    const response = await fetch(`${connection}/user/firms`, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwt}`
+        }
+    });
+    return { status: response.status, data: (response.status === 200 ? await response.json() : {}) };
+}
+
 export { login };
