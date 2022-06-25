@@ -40,4 +40,30 @@ async function addUserTask(jwt, task) {
     return { status: response.status, data: (response.status === 201 ? await response.json() : {}) };
 }
 
+async function removeUserTasks(jwt, tasksIds) {
+    const response = await fetch(`${connection}/user/tasks`, {
+        method: 'DELETE',
+        mode: 'cors',
+        body: JSON.stringify(tasksIds),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwt}`
+        }
+    });
+    return { status: response.status };
+}
+
+async function updateUserTasks(jwt, updates) {
+    const response = await fetch(`${connection}/user/tasks`, {
+        method: 'PUT',
+        mode: 'cors',
+        body: JSON.stringify(updates),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwt}`
+        }
+    });
+    return { status: response.status };
+}
+
 export { login };
