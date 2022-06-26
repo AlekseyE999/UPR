@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import '../styles/auth.css';
 import * as API from '../Api';
 import { useNavigate } from "react-router-dom";
 
@@ -15,8 +14,7 @@ const LoginPage = () => {
 
     const navigate = useNavigate();
 
-    const authorization = async () =>
-    {
+    const authorization = async () => {
         const result = await API.login(login, password);
 
         if (result.status === 200) {
@@ -33,11 +31,11 @@ const LoginPage = () => {
         }
     }
 
-    useEffect(() =>{
-        if(loginError || passwordError){
+    useEffect(() => {
+        if (loginError || passwordError) {
             setFormValid(false)
         }
-        else{
+        else {
             setFormValid(true)
         }
     }, [loginError, passwordError])
@@ -55,39 +53,41 @@ const LoginPage = () => {
 
     const loginHandler = (e) => {
         setLogin(e.target.value)
-        if(!e.target.value){
+        if (!e.target.value) {
             setLoginError('Пустое поле Login')
         }
-        else{
+        else {
             setLoginError('')
         }
     }
 
     const passwordHandler = (e) => {
         setPassword(e.target.value)
-        if(e.target.value.length<3){
+        if (e.target.value.length < 3) {
             setPasswordError('Короткий пароль')
-            if(!e.target.value){
+            if (!e.target.value) {
                 setPasswordError('Пустое поле Password')
             }
         }
-        else{
+        else {
             setPasswordError('')
         }
     }
 
 
     return (
-        <div className="div_auth">
-            <div name="logIn" className="form_auth">
-
-                <h1 style={{textAlign: "center"}}>Автоторизация</h1>
-                {(badLogin && loginError) && <div style={{ color: 'red' }}>{loginError}</div>}
-                <input value={login} onChange={e => loginHandler(e)} name="login" onBlur={e => blurHandler(e)} className="signup_input" type="text" placeholder="Enter Login" />
-                {(badPassword && passwordError) && <div style={{ color: 'red' }}>{passwordError}</div>}
-                <input value={password} onChange={e => passwordHandler(e)} name="password" onBlur={e => blurHandler(e)} className="signup_input" type="password" placeholder="Enter Password" />
-                <button onClick={authorization} disabled={!formValid} type="submit" style={{ alignItems: "end" }} className="signup_button">Submit</button>
-
+        <div className="Login">
+            <h1 style={{ textAlign: "center" }}>Автоторизация</h1>
+            <div style={{ width: "300px", margin: "auto" }}>
+                <div className="m-2">
+                    {(badLogin && loginError) && <div style={{ color: 'red' }}>{loginError}</div>}
+                    <input value={login} onChange={e => loginHandler(e)} name="login" onBlur={e => blurHandler(e)} type="text" placeholder="Enter Login" className="w-100" />
+                </div>
+                <div className="m-2">
+                    {(badPassword && passwordError) && <div style={{ color: 'red' }}>{passwordError}</div>}
+                    <input value={password} onChange={e => passwordHandler(e)} name="password" onBlur={e => blurHandler(e)} type="password" placeholder="Enter Password" className="w-100" />
+                </div>
+                <button onClick={authorization} disabled={!formValid} type="submit" style={{ alignItems: "end" }} className="m-2">Submit</button>
             </div >
         </div >
     );

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import '../styles/filter.css';
 import Option from "./Option.jsx";
 
 const Filter = (props) => {
