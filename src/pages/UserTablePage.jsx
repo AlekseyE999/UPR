@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TasksTable from "../components/TasksTable";
-import Filter from "../components/Filter";
 import Menu from "../components/Menu";
 import Loading from "../components/Loading";
 import * as API from "../Api";
@@ -70,6 +69,19 @@ const UserTablePage = ({ jwt }) => {
         setTasks(tasks.map((task) => { return { ...task, selected: true } }));
     }
 
+    const onDeselectAll = () => {
+        setTasks(tasks.map((task) => { return { ...task, selected: false } }));
+    }
+
+    const deleteTasks = async () => {
+        const ids = (tasks.filter((task) => task.selected)).map((task) => task.id)
+        const result = await API.removeUserTasks(jwt, ids)
+        if(result.status === 200)
+        {
+            setTasks(tasks.filter((task) => !task.selected))
+        }
+    }
+
     
     const postTask = async (task) => {
         const result = await API.addUserTask(localStorage.token, {...task, reportingDate: task.reportingDate.toISOString()});
@@ -93,8 +105,9 @@ const UserTablePage = ({ jwt }) => {
                 <div className="d-flex">
                     <UserAddTaskAction units={units} firms={firms} postTask={postTask}/>
                     <SetFiltersAction firms={firms} />
+                    <button onClick={deleteTasks} >Удалить</button>
                 </div>
-                <TasksTable tasks={tasks} onTaskSelectionChange={onSelectionChange} onSelectAll={onSelectAll} />
+                <TasksTable tasks={tasks} onTaskSelectionChange={onSelectionChange} onSelectAll={onSelectAll} onDeselectAll={onDeselectAll} />
             </div>
         </div>
     );

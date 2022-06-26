@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TasksTableRow from "./TasksTableRow.jsx";
 
-const TasksTable = ({tasks, onTaskSelectionChange, onSelectAll}) => {
+const TasksTable = ({tasks, onTaskSelectionChange, onSelectAll, onDeselectAll}) => {
 
     console.log("Table");
 
@@ -11,7 +11,7 @@ const TasksTable = ({tasks, onTaskSelectionChange, onSelectAll}) => {
             <table className="table table-bordered">
                 <thead className="table-dark">
                     <tr>
-                        <th><button className="btn text-white" onClick={onSelectAll}>✓</button></th>
+                        <th><button className="btn text-white" onClick={tasks.length === tasks.filter(((task) => task.selected)).length ? onDeselectAll : onSelectAll}>✓</button></th>
                         <th>№</th>
                         <th>Задача</th>
                         <th>Ед. Изм.</th>
