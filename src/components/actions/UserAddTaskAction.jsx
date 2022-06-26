@@ -63,7 +63,7 @@ const UserAddTaskAction = ({ units, firms, postTask, ...props }) => {
                         <h3> Отч.</h3>
 
                         <div>
-                            <input onChange={e => task.reportingDate =new Date(e.target.value).toISOString()} type="month" className="border border-1 m-1"></input>
+                            <input onChange={e => task.reportingDate =new Date(e.target.value)} type="month" className="border border-1 m-1"></input>
                         </div>
                         <h3>Фирма.</h3>
 

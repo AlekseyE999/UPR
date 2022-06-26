@@ -15,6 +15,14 @@ const UserTablePage = ({ jwt }) => {
     const [units, setUnits] = useState([]);
     const [firms, setFirms] = useState([]);
 
+
+    const parseTask = (apiTasks) => {
+        return {
+            ...apiTasks, selected: false,
+            reportingDate: new Date(apiTasks.reportingDate), creationDate: new Date(apiTasks.creationDate)
+        }
+    }
+
     useEffect(() => {
         (async () => {
 
@@ -22,12 +30,7 @@ const UserTablePage = ({ jwt }) => {
 
             if (status === 200) {
 
-                const tasks = data.map((task) => {
-                    return {
-                        ...task, selected: false,
-                        reportingDate: new Date(task.reportingDate), creationDate: new Date(task.creationDate)
-                    }
-                });
+                const tasks = data.map((apiTasks) => parseTask(apiTasks));
                 setTasks(tasks);
             }
         })();
@@ -69,12 +72,12 @@ const UserTablePage = ({ jwt }) => {
 
     
     const postTask = async (task) => {
-        const result = await API.addUserTask(localStorage.token, task);
+        const result = await API.addUserTask(localStorage.token, {...task, reportingDate: task.reportingDate.toISOString()});
 
         if (result.status === 201) {
 
-        setTasks([task, ...tasks])
-           return true;
+            setTasks([...tasks, parseTask(result.data)]);
+            return true;
         
         }
         else {
