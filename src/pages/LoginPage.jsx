@@ -77,7 +77,7 @@ const LoginPage = () => {
 
     return (
         <div className="Login">
-            <h1 style={{ textAlign: "center" }}>Автоторизация</h1>
+            <h1 style={{ textAlign: "center" }}>Авторизация</h1>
             <div style={{ width: "300px", margin: "auto" }}>
                 <div className="m-2">
                     {(badLogin && loginError) && <div style={{ color: 'red' }}>{loginError}</div>}

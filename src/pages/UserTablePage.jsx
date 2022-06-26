@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import TasksTable from "../components/TasksTable";
 import Filter from "../components/Filter";
 import Menu from "../components/Menu";
@@ -68,13 +67,29 @@ const UserTablePage = ({ jwt }) => {
         setTasks(tasks.map((task) => { return { ...task, selected: true } }));
     }
 
+    
+    const postTask = async (task) => {
+        const result = await API.addUserTask(localStorage.token, task);
+
+        if (result.status === 201) {
+
+        setTasks([task, ...tasks])
+           return true;
+        
+        }
+        else {
+
+           return false
+        }
+    }
+
     return (
         <div className="UserTable">
             <Menu className="mb-4" />
             <div className="container">
                 <div className="d-flex">
-                    <UserAddTaskAction units={units} firms={firms}/>
-                    <SetFiltersAction />
+                    <UserAddTaskAction units={units} firms={firms} postTask={postTask}/>
+                    <SetFiltersAction firms={firms} />
                 </div>
                 <TasksTable tasks={tasks} onTaskSelectionChange={onSelectionChange} onSelectAll={onSelectAll} />
             </div>
