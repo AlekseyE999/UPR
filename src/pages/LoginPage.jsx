@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import '../styles/auth.css';
-import axios from "axios";
+import * as API from '../Api';
+import { useNavigate } from "react-router-dom";
 
-const LogIn = ({onLogIn}) => {
+const LoginPage = () => {
+
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [badLogin, setBadLogin] = useState(false)
@@ -11,21 +13,24 @@ const LogIn = ({onLogIn}) => {
     const [passwordError, setPasswordError] = useState('Пустое поле Password')
     const [formValid, setFormValid] = useState(false)
 
-    const authorization = () =>
-    {
+    const navigate = useNavigate();
 
-        axios.post(`http://localhost:3000/Authorization`, {
-            login: login,
-            password: password, 
-        }).then((response) => {
-            if(!response.data.auth){
-                onLogIn(false) 
-            } 
-            else{
-                onLogIn(true)
-                localStorage.setItem("token", response.data.token)
-            }
-        }) 
+    const authorization = async () =>
+    {
+        const result = await API.login(login, password);
+
+        if (result.status === 200) {
+
+            localStorage.setItem('token', result.data.token);
+            localStorage.setItem('role', result.data.role);
+            localStorage.setItem('login', result.data.login);
+            navigate('/');
+        }
+        else {
+
+            badLogin(true);
+            badPassword(true);
+        }
     }
 
     useEffect(() =>{
@@ -88,4 +93,4 @@ const LogIn = ({onLogIn}) => {
     );
 }
 
-export default LogIn;
+export default LoginPage;

@@ -1,25 +1,21 @@
-import React, { useState } from "react";
-import Action from "./components/Actions.jsx";
-import Filter from "./components/Filter.jsx";
-import LogIn from "./components/LogIn.jsx";
-import Table from "./components/Table.jsx";
-import './styles/app.css';
+import React from "react";
+import LoginPage from "./pages/LoginPage.jsx";
+import { Route, Routes } from "react-router-dom";
+import TasksTable from "./components/TasksTable";
+import Loading from "./components/Loading";
+import JwtProvider from "./components/JwtProvider";
+import UserTablePage from "./pages/UserTablePage";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  if(isLoggedIn){
-    return(
-    <LogIn onLogIn={setIsLoggedIn}/>
-    );
-  }
-  return (
+  console.log('dasd');
+
+  return  (
     <div className="App">
-      <Action responsible="Aleks" />
-      <div className="wraper">
-        <Filter/>
-        <Table/>
-      </div>    
+      <Routes>
+        <Route index element={<JwtProvider consumer={<UserTablePage />} />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
     </div>
   );
 }
