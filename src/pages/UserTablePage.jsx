@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TasksTable from "../components/TasksTable";
 import Menu from "../components/Menu";
-import Loading from "../components/Loading";
 import * as API from "../Api";
 import UserAddTaskAction from "../components/actions/UserAddTaskAction";
 import SetFiltersAction from "../components/actions/SetFiltersAction";
@@ -13,6 +12,8 @@ const UserTablePage = ({ jwt }) => {
     const [tasks, setTasks] = useState([]);
     const [units, setUnits] = useState([]);
     const [firms, setFirms] = useState([]);
+    const [saveTasks, setSaveTasks] = useState([]);
+
 
 
     const parseTask = (apiTasks) => {
@@ -31,6 +32,7 @@ const UserTablePage = ({ jwt }) => {
 
                 const tasks = data.map((apiTasks) => parseTask(apiTasks));
                 setTasks(tasks);
+                setSaveTasks(tasks);
             }
         })();
     }, [jwt]);
@@ -44,7 +46,7 @@ const UserTablePage = ({ jwt }) => {
 
                 setUnits(data);
             }
-            
+
         })();
     }, []);
 
@@ -57,7 +59,7 @@ const UserTablePage = ({ jwt }) => {
 
                 setFirms(data);
             }
-            
+
         })();
     }, []);
 
@@ -76,26 +78,52 @@ const UserTablePage = ({ jwt }) => {
     const deleteTasks = async () => {
         const ids = (tasks.filter((task) => task.selected)).map((task) => task.id)
         const result = await API.removeUserTasks(jwt, ids)
-        if(result.status === 200)
-        {
+        if (result.status === 200) {
             setTasks(tasks.filter((task) => !task.selected))
+            saveTasks(saveTasks.filter((task) => !task.selected))
         }
     }
 
-    
+
     const postTask = async (task) => {
-        const result = await API.addUserTask(localStorage.token, {...task, reportingDate: task.reportingDate.toISOString()});
+        const result = await API.addUserTask(localStorage.token, { ...task, reportingDate: task.reportingDate.toISOString() });
 
         if (result.status === 201) {
 
             setTasks([...tasks, parseTask(result.data)]);
+            setSaveTasks(...saveTasks, parseTask(result.data))
             return true;
-        
+
         }
         else {
 
-           return false
+            return false
         }
+    }
+
+    const useFilter = async (filter) => {
+        if (filter.name != null) {
+            setTasks(tasks.filter((task) => task.name === filter.name))
+        }
+        if (filter.unitId != null) {
+            setTasks(tasks.filter((task) => task.unit.name === filter.unitId))
+        }
+        if (filter.quantity != null) {
+            setTasks(tasks.filter((task) => task.quantity === filter.quantity))
+        }
+        if (filter.firmId != null) {
+            setTasks(tasks.filter((task) => task.firm.name === filter.firmId))
+        }
+        // if (filter.year != null) {
+        //     setTasks(tasks.filter((task) => task.name === filter.year))
+        // }
+        // if (filter.month != null) {
+        //     setTasks(tasks.filter((task) => task.name === filter.month))
+        // }
+    }
+
+    const cancelFilter = async () => {
+            setTasks(saveTasks)
     }
 
     return (
@@ -103,9 +131,10 @@ const UserTablePage = ({ jwt }) => {
             <Menu className="mb-4" />
             <div className="container">
                 <div className="d-flex">
-                    <UserAddTaskAction units={units} firms={firms} postTask={postTask}/>
-                    <SetFiltersAction firms={firms} />
+                    <UserAddTaskAction units={units} firms={firms} postTask={postTask} />
+                    <SetFiltersAction firms={firms} units={units} useFilter={useFilter} cancelFilter={cancelFilter} />
                     <button onClick={deleteTasks} >Удалить</button>
+                    <button onClick={cancelFilter} >Отменить фильтры</button>
                 </div>
                 <TasksTable tasks={tasks} onTaskSelectionChange={onSelectionChange} onSelectAll={onSelectAll} onDeselectAll={onDeselectAll} />
             </div>

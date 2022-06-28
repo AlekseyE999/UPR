@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Option from "./Option.jsx";
 
-const Filter = ({firms}) => {
+const Filter = ({firms, units}) => {
     const [options, setOptions] = useState([
         { id: 1, value: 'hour', name: 'час', },
         { id: 2, value: 'day', name: 'день', },
@@ -20,8 +20,9 @@ const Filter = ({firms}) => {
             <div className="units select_item">
                 <h3>Ед. Изм.</h3>
                 <select>
+                <option selected={true} hidden></option>
                     {
-                        options.map((option) =>
+                        units.map((option) =>
                             <Option data={option} key={option.id} />
                         )
                     }
@@ -34,7 +35,8 @@ const Filter = ({firms}) => {
             <div className="reporting_month select_item">
                 <h3>Отчётный месяц</h3>
                 <select>
-                    <option selected value="jan">Январь</option>
+                    <option selected={true} hidden></option>
+                    <option value="jan">Январь</option>
                     <option value="feb">Февраль</option>
                     <option value="mar">Март</option>
                     <option value="apr">Апрель</option>
@@ -55,6 +57,7 @@ const Filter = ({firms}) => {
             <div className="firm select_item">
                 <h3>Фирма</h3>
                 <select>
+                <option selected={true} hidden></option>
                     {
                         firms.map((firm) =>
                         <option value={firm.id}>{firm.name}</option>

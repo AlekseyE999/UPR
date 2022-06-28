@@ -2,21 +2,19 @@ import React from "react";
 
 const TasksTableRow = ({task, index, onTaskSelectionChange}) => {
 
-    console.log(task.selected ? "table-warning" : '');
-
     const monthsNames = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
+        'Январь',
+        'Февраль',
+        'Март',
+        'Апрель',
+        'Май',
+        'Июнь',
+        'Июль',
+        'Август',
+        'Сентябрь',
+        'Октябрь',
+        'Ноябрь',
+        'Декабрь',
     ];
 
     return (

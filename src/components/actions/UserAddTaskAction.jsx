@@ -36,8 +36,9 @@ const UserAddTaskAction = ({ units, firms, postTask, ...props }) => {
             </button>
             <ReactModal style={customStyles} isOpen={showModal}>
                 <div>
+                <h2>Добавление</h2>
                     <div>
-                        <h3>Название:</h3>
+                        <h3>Задача</h3>
                         <div>
                             <input onChange={e => task.name = e.target.value} className="border border-1 m-1"></input>
                         </div>
@@ -50,22 +51,22 @@ const UserAddTaskAction = ({ units, firms, postTask, ...props }) => {
                                 {units.map((unit) => <option value={unit.id}>{unit.name}</option>)}
                             </select>
                         </div>
-                        <h3>Кол-во:</h3>
+                        <h3>Количество</h3>
 
                         <div>
-                            <input onChange={e => task.quantity = e.target.value} type="number" className="border border-1 m-1"></input>
+                            <input onChange={e => task.quantity = e.target.value} type="number" min={1} max={99} className="border border-1 m-1"></input>
                         </div>
-                        <h3>Прим:</h3>
+                        <h3>Примечание</h3>
 
                         <div>
                             <input onChange={e => task.description = e.target.value} className="border border-1 m-1"></input>
                         </div>
-                        <h3> Отч.</h3>
+                        <h3> Отчётный месяц и год</h3>
 
                         <div>
                             <input onChange={e => task.reportingDate =new Date(e.target.value)} type="month" className="border border-1 m-1"></input>
                         </div>
-                        <h3>Фирма.</h3>
+                        <h3>Фирма</h3>
 
                         <div>
                             <select onChange={e => task.firmId = e.target.value} className="border border-1 m-1">

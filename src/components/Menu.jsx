@@ -24,7 +24,7 @@ const Menu = ({className}) => {
                                 </ul>
                             </li>
                         </ul>
-                        <UserAvatar name={'Travka'} />
+                        <UserAvatar name={localStorage.login} />
                     </div>
                 </div>
             </nav>

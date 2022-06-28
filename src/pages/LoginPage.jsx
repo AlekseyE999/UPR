@@ -27,6 +27,7 @@ const LoginPage = () => {
         else {
 
             badLogin(true);
+            setPasswordError('Неверный пароль');
             badPassword(true);
         }
     }
@@ -63,11 +64,9 @@ const LoginPage = () => {
 
     const passwordHandler = (e) => {
         setPassword(e.target.value)
-        if (e.target.value.length < 3) {
-            setPasswordError('Короткий пароль')
-            if (!e.target.value) {
-                setPasswordError('Пустое поле Password')
-            }
+
+        if (!e.target.value) {
+            setPasswordError('Пустое поле Password')
         }
         else {
             setPasswordError('')
