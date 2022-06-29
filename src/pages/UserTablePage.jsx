@@ -12,9 +12,7 @@ const UserTablePage = ({ jwt }) => {
     const [tasks, setTasks] = useState([]);
     const [units, setUnits] = useState([]);
     const [firms, setFirms] = useState([]);
-    const [saveTasks, setSaveTasks] = useState([]);
-
-
+    const [filter, setFilter] = useState({});
 
     const parseTask = (apiTasks) => {
         return {
@@ -32,7 +30,6 @@ const UserTablePage = ({ jwt }) => {
 
                 const tasks = data.map((apiTasks) => parseTask(apiTasks));
                 setTasks(tasks);
-                setSaveTasks(tasks);
             }
         })();
     }, [jwt]);
@@ -80,7 +77,6 @@ const UserTablePage = ({ jwt }) => {
         const result = await API.removeUserTasks(jwt, ids)
         if (result.status === 200) {
             setTasks(tasks.filter((task) => !task.selected))
-            saveTasks(saveTasks.filter((task) => !task.selected))
         }
     }
 
@@ -91,7 +87,6 @@ const UserTablePage = ({ jwt }) => {
         if (result.status === 201) {
 
             setTasks([...tasks, parseTask(result.data)]);
-            setSaveTasks(...saveTasks, parseTask(result.data))
             return true;
 
         }
@@ -101,30 +96,15 @@ const UserTablePage = ({ jwt }) => {
         }
     }
 
-    const useFilter = async (filter) => {
-        if (filter.name != null) {
-            setTasks(tasks.filter((task) => task.name === filter.name))
-        }
-        if (filter.unitId != null) {
-            setTasks(tasks.filter((task) => task.unit.name === filter.unitId))
-        }
-        if (filter.quantity != null) {
-            setTasks(tasks.filter((task) => task.quantity === filter.quantity))
-        }
-        if (filter.firmId != null) {
-            setTasks(tasks.filter((task) => task.firm.name === filter.firmId))
-        }
-        // if (filter.year != null) {
-        //     setTasks(tasks.filter((task) => task.name === filter.year))
-        // }
-        // if (filter.month != null) {
-        //     setTasks(tasks.filter((task) => task.name === filter.month))
-        // }
-    }
+    const passFilter = (task) =>
+        (!filter.name || (task.name.includes(filter.name))) &&
+        (!filter.unitId || (task.unit.id == filter.unitId)) &&
+        (!filter.quantity || (task.quantity == filter.quantity)) &&
+        (!filter.firmId || (task.firm.id == filter.firmId)) &&
+        (!filter.month || (task.reportingDate.getMonth() == filter.month)) &&
+        (!filter.year || (task.reportingDate.getYear() == (filter.year - 1900)))
 
-    const cancelFilter = async () => {
-            setTasks(saveTasks)
-    }
+
 
     return (
         <div className="UserTable">
@@ -132,11 +112,10 @@ const UserTablePage = ({ jwt }) => {
             <div className="container">
                 <div className="d-flex">
                     <UserAddTaskAction units={units} firms={firms} postTask={postTask} />
-                    <SetFiltersAction firms={firms} units={units} useFilter={useFilter} cancelFilter={cancelFilter} />
+                    <SetFiltersAction firms={firms} units={units} filter={filter} setFilter={setFilter} />
                     <button onClick={deleteTasks} >Удалить</button>
-                    <button onClick={cancelFilter} >Отменить фильтры</button>
                 </div>
-                <TasksTable tasks={tasks} onTaskSelectionChange={onSelectionChange} onSelectAll={onSelectAll} onDeselectAll={onDeselectAll} />
+                <TasksTable tasks={tasks.filter((task) => passFilter(task))} onTaskSelectionChange={onSelectionChange} onSelectAll={onSelectAll} onDeselectAll={onDeselectAll} />
             </div>
         </div>
     );
