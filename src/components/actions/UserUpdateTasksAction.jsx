@@ -8,7 +8,10 @@ const UserUpdateTasksAction = ({ units, firms, updateTasks, ...props }) => {
     const [update, setUpdate] = useState({});
 
     const openModal = () => setShowModal(true);
-    const closeModal = () => setShowModal(false);
+    const closeModal = () => {
+        setShowModal(false);
+        setUpdate({});
+    }
 
     const customStyles = {
         content: {

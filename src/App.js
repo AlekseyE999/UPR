@@ -1,8 +1,6 @@
 import React from "react";
 import LoginPage from "./pages/LoginPage.jsx";
 import { Route, Routes } from "react-router-dom";
-import TasksTable from "./components/TasksTable";
-import Loading from "./components/Loading";
 import JwtProvider from "./components/JwtProvider";
 import UserTablePage from "./pages/UserTablePage";
 
