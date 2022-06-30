@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
-import Filter from "../Filter";
-import Option from "../Option";
 
 const SetFiltersAction = ({ firms, units, filter, setFilter, ...props }) => {
 

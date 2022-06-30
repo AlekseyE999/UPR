@@ -4,6 +4,7 @@ import Menu from "../components/Menu";
 import * as API from "../Api";
 import UserAddTaskAction from "../components/actions/UserAddTaskAction";
 import SetFiltersAction from "../components/actions/SetFiltersAction";
+import UserUpdateTasksAction from "../components/actions/UserUpdateTasksAction";
 
 const UserTablePage = ({ jwt }) => {
 
@@ -96,6 +97,38 @@ const UserTablePage = ({ jwt }) => {
         }
     }
 
+    const updateTasks = async (update) => {
+        const updates = tasks.filter((task) => task.selected).map((tasks) => { 
+            let tUpdate = { id: tasks.id};
+            if (update.unit) tUpdate.unitId = update.unit.id;
+            if (update.quantity) tUpdate.quantity = update.quantity;
+            if (update.description) tUpdate.description = update.description;
+            if (update.reportingDate) tUpdate.reportingDate = update.reportingDate;
+            if (update.firm) tUpdate.firmId = update.firm.id;
+            return tUpdate;
+        });
+        console.log(updates);
+
+        const result = await API.updateUserTasks(jwt, updates);
+
+        if (result.status === 200) {
+
+            setTasks(tasks.map((task) => {
+
+                if (task.selected) {
+
+                    task.unit = update.unit ?? task.unit;
+                    task.quantity = update.quantity ?? task.quantity;
+                    task.description = update.description ?? task.description;
+                    task.reportingDate = update.reportingDate ?? task.reportingDate;
+                    task.firm = update.firm ?? task.firm;
+                }
+                
+                return task;
+            }))
+        }
+    }
+
     const passFilter = (task) =>
         (!filter.name || (task.name.includes(filter.name))) &&
         (!filter.unitId || (task.unit.id == filter.unitId)) &&
@@ -113,6 +146,7 @@ const UserTablePage = ({ jwt }) => {
                 <div className="d-flex">
                     <UserAddTaskAction units={units} firms={firms} postTask={postTask} />
                     <SetFiltersAction firms={firms} units={units} filter={filter} setFilter={setFilter} />
+                    <UserUpdateTasksAction firms={firms} units={units} updateTasks={updateTasks}></UserUpdateTasksAction>
                     <button onClick={deleteTasks} >Удалить</button>
                 </div>
                 <TasksTable tasks={tasks.filter((task) => passFilter(task))} onTaskSelectionChange={onSelectionChange} onSelectAll={onSelectAll} onDeselectAll={onDeselectAll} />
